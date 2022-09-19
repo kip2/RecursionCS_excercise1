@@ -20,3 +20,6 @@ recursionCS初心者チームワーク練習用です。
  - CSプロジェクトの成果物をあげる(vending machine予定）
  - htmlとCSSで簡単なサイトの外観作ってあげる（努力課題）
  - 可能ならjavascriptでなにか動きをつける
+
+## 疑問点
+ - リポジトリ内にあるフォルダの中のREADMEは自動でGitHubに読み込まれるのか
