@@ -1,0 +1,2 @@
+# RecursionCS_excercise1
+recursionCS初心者チームワーク練習用です。
