@@ -33,31 +33,34 @@ let zoo = [
 ];
 //==========================================
 
+// ドキュメントあらかじめ取得処理======================
 const root = document.getElementById("root");
 
 root.innerHTML = `
     <div class="vh-100 d-flex justify-content-center align-items-center">
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="col-12 col-md-11 col-lg-8 bg-pink d-flex flex-wrap">
-
-                <div id="slider" class="col-12 col-md-7 p-2 d-flex justify-content-center align-items-center">
-                </div>
-
-                <div id="manipulation-container" class="col-12 col-md-5 py-2">
-                    <div id="info_container">
-                    </div>
-                    <div id="btn_container">
-                    </div>
-                </div>
-
+        <div class="col-12 col-md-11 col-lg-8 bg-pink d-flex flex-wrap">
+            <div id="slider" class="col-12 col-md-7 p-2 d-flex justify-content-center align-items-center" data-index="-1">
             </div>
+
+            <div id="manipulation-container" class="col-12 col-md-5 py-2">
+                <div id="info_container">
+                </div>
+                <div id="btn_container">
+                </div>
+            </div>
+
         </div>
     </div>
-`;
-
-// ドキュメントあらかじめ取得処理======================
+`
 const slider = document.getElementById("slider");
 const info_container = document.getElementById("info_container");
+
+slider.innerHTML = `
+    <div id="slider_show" class="col-12 d-flex">
+        <div id="main" class="full-width"></div>
+        <div id="extra" class="full-width"></div>
+    </div>
+`
 
 // ボタン設置========================================
 let btn_container = document.getElementById("btn_container");
@@ -73,23 +76,35 @@ for(let i = 0; i < zoo.length; i++){
 
     // button押下時のイベント追加
     btn.addEventListener("click", () => {
+        
         // イメージの追加
-        let image = document.createElement("div");
-        image.innerHTML = `
-            <div class="full-width">
-                <div class="d-flex justify-content-center">
-                    <img class="col-10 img-fluid" src="${zoo[i].imgUrl}" alt="">
-                </div>
-            </div>
-        `;
-        // 該当コンテナにイメージを追加
-        slider.innerHTML = "";
-        slider.appendChild(image);
+        let currentElement = document.createElement("div");
+        currentElement.classList.add("d-flex", "justify-content-center");
 
+        let currentIndex = slider.getAttribute("data-index");
+        let nextIndex = i;
+        if (currentIndex === "-1") {
+            currentElement.innerHTML = `
+                <img class="col-8 img-fit" src="${zoo[0].imgUrl}" alt="">
+            `
+        } else {
+        currentElement.innerHTML = `
+            <img class="col-8 img-fit" src="${zoo[currentIndex].imgUrl}" alt="">
+        `
+        }
+        let nextElement = document.createElement("div");
+        nextElement.classList.add("d-flex", "justify-content-center");
+        nextElement.innerHTML = `
+            <img class="col-8 img-fit" src="${zoo[i%zoo.length].imgUrl}" alt="">
+        `
+
+        // indexの取得
+        let animationType = animation_type(currentIndex, nextIndex);
+        animation_slider(currentElement, nextElement, animationType);
+        
         // インフォメーションアップデート
         infomation_update(i);
-
-    }) ;
+    });
     
     btn_outer.appendChild(btn);
 }
@@ -97,13 +112,60 @@ btn_container.appendChild(btn_outer);
 
 
 //==================================================
+
+function animation_type (current, next) {
+    if (current > next) return "left";
+    else return "right";
+}
+
+function animation_slider(currentElement, nextElement, animationType) {
+    let main = document.getElementById("main");
+    let extra = document.getElementById("extra");
+
+    main.innerHTML = "";
+    main.appendChild(nextElement);
+    extra.innerHTML = "";
+    extra.appendChild(currentElement);
+
+    main.classList.add("expand-animation");
+    extra.classList.add("deplete-animation");
+
+    let sliderShow = document.getElementById("slider_show");
+    if (animationType === "right") {
+        sliderShow.innerHTML = "";
+        sliderShow.appendChild(extra);
+        sliderShow.appendChild(main);
+    }else if (animationType === "left") {
+        sliderShow.innerHTML = "";
+        sliderShow.appendChild(main);
+        sliderShow.appendChild(extra);
+    }
+}
+
+/*
+// 単純な配置用関数
+function image_arrangement(index){
+    let image = document.createElement("div");
+    image.innerHTML = `
+        <div class="full-width">
+            <div class="d-flex justify-content-center">
+                <img class="col-10 img-fluid" src="${zoo[index].imgUrl}" alt="">
+            </div>
+        </div>
+    `
+    // 該当コンテナにイメージを追加
+    slider.innerHTML = "";
+    slider.appendChild(image);
+}
+*/
+
 function infomation_update(index){
         let infomation = document.createElement("div");
         infomation.classList.add("col-12", "col-md-5");
         infomation.innerHTML = `
             <p class="m-0">Name : ${zoo[index].name}</p>
             <p class="m-0">Price : ${zoo[index].price}</p>
-        `;
+        `
         info_container.innerHTML = "";
         info_container.appendChild(infomation);
 }
