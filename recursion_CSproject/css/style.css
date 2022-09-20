@@ -1,0 +1,8 @@
+.bg-pink {
+    background-color: pink;
+}
+
+.full-width{
+    width: 100%;
+    flex-shrink: 0;
+}
