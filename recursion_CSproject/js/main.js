@@ -88,15 +88,17 @@ for(let i = 0; i < zoo.length; i++){
                 <img class="col-8 img-fit" src="${zoo[0].imgUrl}" alt="">
             `
         } else {
-        currentElement.innerHTML = `
-            <img class="col-8 img-fit" src="${zoo[currentIndex].imgUrl}" alt="">
-        `
+            currentElement.innerHTML = `
+                <img class="col-8 img-fit" src="${zoo[currentIndex].imgUrl}" alt="">
+            `
         }
         let nextElement = document.createElement("div");
         nextElement.classList.add("d-flex", "justify-content-center");
         nextElement.innerHTML = `
             <img class="col-8 img-fit" src="${zoo[i%zoo.length].imgUrl}" alt="">
         `
+        // data-index更新
+        slider.setAttribute("data-index", i);
 
         // indexの取得
         let animationType = animation_type(currentIndex, nextIndex);
