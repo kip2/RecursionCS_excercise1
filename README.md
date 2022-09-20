@@ -14,10 +14,11 @@ recursionCS初心者チームワーク練習用です。
 
    そのままではファイルとして利用できないので、CUIで入力を受け付けるようにした。
 
+ - CSProject2のVendingMachineをアップロード。
+ 
 
 ## やる予定
  ※備忘用メモ
- - CSプロジェクトの成果物をあげる(vending machine予定）
  - htmlとCSSで簡単なサイトの外観作ってあげる（努力課題）
  - 可能ならjavascriptでなにか動きをつける
 
