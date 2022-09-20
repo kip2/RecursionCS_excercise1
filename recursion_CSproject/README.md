@@ -1,4 +1,6 @@
-# README読み込みするかどうかのテスト
+# READMEテスト
 
-## TEST
-test
+
+フォルダ内のREADMEは読み込まれるかのテスト
+
+
