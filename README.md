@@ -23,4 +23,4 @@ recursionCS初心者チームワーク練習用です。
  - 可能ならjavascriptでなにか動きをつける
 
 ## 疑問点
- - リポジトリ内にあるフォルダの中のREADMEは自動でGitHubに読み込まれるのか
+ - リポジトリ内にあるフォルダの中のREADMEは自動でGitHubに読み込まれるのか(TEST OK)
